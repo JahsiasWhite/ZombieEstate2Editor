@@ -37,6 +37,8 @@ impl ModManagerApp {
 
     fn render_categories(&mut self, ui: &mut egui::Ui) {
         ui.heading("Categories");
+
+        ui.add_space(10.0);
         
         // Grid for categories with icons/images
         egui::Grid::new("categories_grid")
@@ -50,29 +52,54 @@ impl ModManagerApp {
                 ui.end_row();
 
                 // Levels category
-                if ui.button("Levels").clicked() {
+                if ui.button("Levels TODO").clicked() {
                     self.view_state = ViewState::FileList("Levels".to_string());
                 }
                 ui.label("Modify level layouts and properties");
                 ui.end_row();
 
                 // Guns category
-                if ui.button("Guns").clicked() {
+                if ui.button("Guns TODO").clicked() {
                     self.view_state = ViewState::FileList("Guns".to_string());
                 }
                 ui.label("Adjust weapon stats and behavior");
+                ui.end_row();
+
+                // Bullets category
+                if ui.button("Bullets").clicked() {
+                    self.view_state = ViewState::FileList("Bullets".to_string());
+                }
+                ui.label("Adjust bullet stats and behavior");
                 ui.end_row();
             });
     }
 
     fn render_file_list(&mut self, category: &str, ui: &mut egui::Ui) {
         ui.horizontal(|ui| {
-            if ui.button("← Back to Categories").clicked() {
+            if ui.button("<- Back to Categories").clicked() {
                 self.view_state = ViewState::Categories;
                 self.selected_file = None;
                 self.xml_values = None;
             }
+
             ui.heading(category);
+
+            // Add New button for Characters category
+            if category == "Characters" {
+                ui.add_space(10.0);
+                if ui.button("+ New Character").clicked() {
+                    match self.file_manager.lock().unwrap().create_new_character(category) {
+                        Ok(new_file) => {
+                            self.selected_file = Some(new_file);
+                            self.xml_values = None;
+                        }
+                        Err(err) => {
+                            eprintln!("Error creating new character: {:?}", err);
+                            // TODO: Show error in UI
+                        }
+                    }
+                }
+            }
         });
 
         ui.add_space(10.0);
@@ -112,7 +139,7 @@ impl eframe::App for ModManagerApp {
                 }
             });
 
-            ui.add_space(10.0);
+            ui.add_space(20.0);
             
             // self.render_file_list(ui);
             let category = match &self.view_state {
@@ -126,6 +153,8 @@ impl eframe::App for ModManagerApp {
                 self.render_categories(ui);
             }
             
+            ui.add_space(10.0);
+
             if let Some(selected_file) = &self.selected_file {
                 ui.group(|ui| {
                     ui.heading("XML Editor");
@@ -179,24 +208,28 @@ impl eframe::App for ModManagerApp {
                                     });
                             });
                     }
+                    
+                    if ui.button("💾 Save Changes").clicked() {
+                        if let Some(values) = &self.xml_values {
+                            match self.xml_handler.save_changes(selected_file, values) {
+                                Ok(_) => {
+                                    // Show success message
+                                    ui.label("✅ Changes saved successfully!");
+                                }
+                                Err(err) => {
+                                    eprintln!("Error saving changes: {:?}", err);
+                                    // Show error message in UI
+                                    ui.label("❌ Failed to save changes");
+                                }
+                            }
+                        }
+                    }
                 });
             }
 
             ui.add_space(10.0);
 
-            ui.horizontal(|ui| {
-                if ui.button("Create Backup").clicked() {
-                    self.file_manager.lock().unwrap().create_backup().ok();
-                }
-                if ui.button("Restore Backup").clicked() {
-                    if let Some(path) = rfd::FileDialog::new()
-                        .set_directory(&self.file_manager.lock().unwrap().get_backup_path())
-                        .pick_folder() 
-                    {
-                        self.file_manager.lock().unwrap().restore_backup(&path).ok();
-                    }
-                }
-            });
+            
         });
         });
     }

@@ -1,47 +1,85 @@
 # Character Information Template
 
+# Basic Character Properties
+
+# Hat offset - Controls the position of character's hat
+hatOffset:
+    X: [int] Horizontal offset for hat position
+    Y: [int] Vertical offset for hat position
+
 # Name of the character
-Name: [Name of the character]
+name: [String] Character's display name
 
-# Texture coordinates for vertical and horizontal alignment
-VertTexCoord:
-  X: [Vertical Texture X-coordinate]
-  Y: [Vertical Texture Y-coordinate]
+# Texture coordinates - Position in the character sprite sheet
+texCoord:
+    X: [int] Horizontal position in the sprite sheet
+    Y: [int] Vertical position in the sprite sheet
 
-HorizTexCoord:
-  X: [Horizontal Texture X-coordinate]
-  Y: [Horizontal Texture Y-coordinate]
+# Character description
+description: [String] Brief character description or flavor text
 
-# Speed of the character
-Speed: [Speed value]
+# Gun the character spawns with
+# The string has to match the name of the weapon in /Guns. Ex: Pistol
+startingGun: [String] Initial weapon name
 
-# Behaviors associated with the character
-Behaviors:
-  - [Behavior 1: Format is "Action, Param1, Param2, Param3, Param4"]
-  - [Behavior 2: Same format as above]
-  - [Behavior 3 (optional): If not used, leave blank or write "None"]
-  - [Behavior 4 (optional): Same as above]
+# Points required to unlock the character
+PointsToUnlock: [int] Number of points needed to unlock this character
 
-# Persistence settings
-PersistOnDeath: [true/false]  # Whether the character persists on death
-PersistTime: [Time value]    # Duration (if any) of persistence
+# Super weapon
+# The string has to match the name of the weapon in /Guns. Ex: Acid Spitter
+# Some characters have "Nuke Gun" that aren't in the /Guns directory...?
+superWeapon: [String] Special weapon name for the character
 
-# Rotation settings
-RandomZRotation: [true/false]       # Random rotation around the Z-axis
-RotatesInDirection: [true/false]   # Whether rotation follows the direction of movement
-XRotationOverTime: [Rotation rate around X-axis]
-YRotationOverTime: [Rotation rate around Y-axis]
-ZRotationOverTime: [Rotation rate around Z-axis]
+# Character Properties
 
-# Randomized properties
-RandomSpeedPercent: [Percentage of random speed variation]
-RandomFour: [true/false]  # Whether some random behavior is enabled
+## Combat Stats
+Speed: [float] Base movement speed of the character
+BulletDamageMod: [int] Percentage modifier for bullet damage
+MeleeDamageMod: [int] Percentage modifier for melee damage
+MaxHealth: [int] Maximum health points
+Armor: [int] Base armor value
+CritChance: [int] Percentage chance to deal critical hits
 
-# Other attributes
-NoGore: [true/false]        # Disable gore effects
-LiveTime: [Duration]        # Lifespan of the character (in seconds)
-EmitPartTime: [Duration]    # Time for emitting particles (if applicable)
-Scale: [Scale factor]       # Size scaling (default 0 means no scaling)
-IgnoreEnemies: [true/false] # Ignore enemy interactions
-HurtsPlayers: [true/false]  # Whether the character hurts players
-LandOnFloor: [true/false]   # Whether the character lands on the floor
+## Resistances
+FireResist: [int] Fire damage resistance percentage
+WaterResist: [int] Water damage resistance percentage
+EarthResist: [int] Earth damage resistance percentage
+AllResist: [int] Resistance to all damage types percentage
+
+## Healing Properties
+LifeStealPercent: [int] Percentage of damage converted to healing
+HealRecievedMod: [int] Percentage modifier for healing received
+HealingDoneMod: [int] Percentage modifier for healing done to others
+HealOverTime: [int] Amount of health regenerated over time
+HealOnHitPercent: [int] Chance to heal on hit
+HealOnHitAmount: [int] Amount healed when heal on hit triggers
+ChanceOfArmorOnHeal: [int] Percentage chance to gain armor when healed
+ArmorGainedOnChanceOnHeal: [int] Amount of armor gained when healing armor proc occurs
+HealthPackStorageBonus: [int] Additional health pack storage capacity
+
+## Weapon Modifiers
+ExplosionRadiusMod: [int] Percentage modifier for explosion radius
+ExplosionDamageMod: [int] Percentage modifier for explosion damage
+ReloadTimeMod: [int] Percentage modifier for reload speed
+ShotTimeMod: [int] Percentage modifier for firing rate
+SwingTimeMod: [int] Percentage modifier for melee swing speed
+NumBulletsMod: [int] Additional projectiles per shot
+GunCostMod: [int] Percentage modifier for weapon costs
+
+## Minion Properties
+MinionDmgMod: [int] Percentage modifier for minion damage
+MinionFireRateMod: [int] Percentage modifier for minion attack speed
+MinionAmmoMod: [int] Percentage modifier for minion ammunition
+
+## Ammunition Bonuses TODO: Is this spawn amount?
+Ammo_Shells: [int] Additional shotgun shell capacity
+Ammo_Assault: [int] Additional assault rifle ammo capacity
+Ammo_Explosive: [int] Additional explosive ammo capacity
+Ammo_Heavy: [int] Additional heavy weapon ammo capacity
+
+## Misc Bonuses
+MoneyBonus: [int] Modifier for money gained
+MagnetBonus: [int] Percentage modifier for pickup range
+
+# Notes:
+2. Weapon names must exactly match the names in the /Guns directory

@@ -1,0 +1,66 @@
+# Bullet Statistics Configuration Template
+
+# Basic Properties
+
+# Name of the bullet
+Name: [String] Display name or identifier for the bullet
+
+# Texture Coordinates
+## Vertical Texture Coordinates - Position in the vertical sprite sheet
+VertTexCoord:
+    X: [int] Horizontal position in the vertical sprite sheet
+    Y: [int] Vertical position in the vertical sprite sheet
+
+## Horizontal Texture Coordinates - Position in the horizontal sprite sheet
+HorizTexCoord:
+    X: [int] Horizontal position in the horizontal sprite sheet
+    Y: [int] Vertical position in the horizontal sprite sheet
+
+# Movement Properties
+Speed: [float] Base movement speed of the bullet
+
+# Behavior Configuration
+## List of behavior strings that define bullet patterns
+# Format: "String BehaviorType, double param1, double param2, double param3, double param4"
+# Example: "Straight, 1.0, 0.0, 0.0, 1.0"
+# BehaviorType Examples: [AngleSide, Launch, Straight, Wiggle]
+# TODO: Can you add infinite of these? And what is the path when more are added?
+# Where is BehaviorType defined?
+BehaviorsStrings: [Array of strings] Each string defines a behavior pattern
+    - Can contain multiple behaviors
+    - Null values are allowed
+    - Parameters vary based on behavior type
+
+# Persistence Properties
+PersistOnDeath: [bool] Whether the bullet remains after hitting a target
+PersistTime: [float] Duration the bullet persists if PersistOnDeath is true
+
+# Rotation Properties
+RandomZRotation: [bool] Whether the bullet should have random Z-axis rotation
+RotatesInDirection: [bool] Whether the bullet rotates to match its movement direction
+XRotationOverTime: [float] Rotation speed around X axis over time
+YRotationOverTime: [float] Rotation speed around Y axis over time
+ZRotationOverTime: [float] Rotation speed around Z axis over time
+
+# Variation Properties
+RandomSpeedPercent: [int] Percentage variation in bullet speed (0-100) TODO
+RandomFour: [bool] Whether to randomize between four directions
+
+# Visual Properties
+NoGore: [bool] Whether to disable gore effects for this bullet
+Scale: [float] Size multiplier for the bullet (0 = no multiplier)
+
+# Timing Properties
+LiveTime: [float] How long the bullet exists before despawning (0 = infinite)
+EmitPartTime: [float] Time interval between particle emissions (0 = no particles) TODO
+
+# Interaction Properties
+IgnoreEnemies: [bool] Whether the bullet passes through enemies
+HurtsPlayers: [bool] Whether the bullet can damage players
+LandOnFloor: [bool] Whether the bullet can land on the floor
+
+# Notes:
+1. Behavior strings follow a specific format with comma-separated values
+3. Time values are in seconds ?
+4. Rotation values are in degrees per second ?
+5. Multiple behaviors can be defined, with 0-inf entries allowed?? TODO
