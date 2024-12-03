@@ -1,0 +1,6 @@
+# Rust
+Cargo.lock
+/target
+
+# Settings generated from the app
+config.json

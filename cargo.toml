@@ -1,0 +1,18 @@
+[package]
+name = "game_mod_manager"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+winapi = { version = "0.3.9", features = ["winuser"] }
+eframe = "0.22.0"  # For GUI
+quick-xml = "0.30.0"  # For XML parsing
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+walkdir = "2.3"  # For file traversal
+chrono = "0.4"   # For timestamps
+notify = "6.0"   # For file watching
+anyhow = "1.0"   # For error handling
+log = "0.4"
+env_logger = "0.10"
+rfd = "0.11"

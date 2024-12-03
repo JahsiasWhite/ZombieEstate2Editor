@@ -1,0 +1,47 @@
+# Character Information Template
+
+# Name of the character
+Name: [Name of the character]
+
+# Texture coordinates for vertical and horizontal alignment
+VertTexCoord:
+  X: [Vertical Texture X-coordinate]
+  Y: [Vertical Texture Y-coordinate]
+
+HorizTexCoord:
+  X: [Horizontal Texture X-coordinate]
+  Y: [Horizontal Texture Y-coordinate]
+
+# Speed of the character
+Speed: [Speed value]
+
+# Behaviors associated with the character
+Behaviors:
+  - [Behavior 1: Format is "Action, Param1, Param2, Param3, Param4"]
+  - [Behavior 2: Same format as above]
+  - [Behavior 3 (optional): If not used, leave blank or write "None"]
+  - [Behavior 4 (optional): Same as above]
+
+# Persistence settings
+PersistOnDeath: [true/false]  # Whether the character persists on death
+PersistTime: [Time value]    # Duration (if any) of persistence
+
+# Rotation settings
+RandomZRotation: [true/false]       # Random rotation around the Z-axis
+RotatesInDirection: [true/false]   # Whether rotation follows the direction of movement
+XRotationOverTime: [Rotation rate around X-axis]
+YRotationOverTime: [Rotation rate around Y-axis]
+ZRotationOverTime: [Rotation rate around Z-axis]
+
+# Randomized properties
+RandomSpeedPercent: [Percentage of random speed variation]
+RandomFour: [true/false]  # Whether some random behavior is enabled
+
+# Other attributes
+NoGore: [true/false]        # Disable gore effects
+LiveTime: [Duration]        # Lifespan of the character (in seconds)
+EmitPartTime: [Duration]    # Time for emitting particles (if applicable)
+Scale: [Scale factor]       # Size scaling (default 0 means no scaling)
+IgnoreEnemies: [true/false] # Ignore enemy interactions
+HurtsPlayers: [true/false]  # Whether the character hurts players
+LandOnFloor: [true/false]   # Whether the character lands on the floor
