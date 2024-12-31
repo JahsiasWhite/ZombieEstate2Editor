@@ -87,15 +87,36 @@ impl ModManagerApp {
             // Add New button for Characters category
             if category == "Characters" {
                 ui.add_space(10.0);
-                if ui.button("+ New Character").clicked() {
-                    match self.file_manager.lock().unwrap().create_new_character(category) {
-                        Ok(new_file) => {
-                            self.selected_file = Some(new_file);
-                            self.xml_values = None;
-                        }
-                        Err(err) => {
-                            eprintln!("Error creating new character: {:?}", err);
-                            // TODO: Show error in UI
+
+                // Simply adding a new character file to this directory doesn't actually add a new character :P
+                // if ui.button("+ New Character").clicked() {
+                //     match self.file_manager.lock().unwrap().create_new_character(category) {
+                //         Ok(new_file) => {
+                //             self.selected_file = Some(new_file);
+                //             self.xml_values = None;
+                //         }
+                //         Err(err) => {
+                //             eprintln!("Error creating new character: {:?}", err);
+                //             // TODO: Show error in UI
+                //         }
+                //     }
+                // }
+
+                ui.add_space(10.0);
+                if ui.button("🔓 Unlock All Characters").clicked() {
+                    if let Ok(files) = self.file_manager.lock().unwrap().get_category_files(category) {
+                        for file in files {
+                            // Load each character file
+                            if let Ok(mut values) = self.xml_handler.load_file(&file) {
+                                // Find and modify PointsToUnlock value
+                                if let Some(value) = values.iter_mut().find(|v| v.name == "PointsToUnlock") {
+                                    value.value = "0".to_string();
+                                    // Save changes back to file
+                                    if let Err(err) = self.xml_handler.save_changes(&file, &values) {
+                                        eprintln!("Error saving changes to {:?}: {:?}", file, err);
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -128,8 +149,9 @@ impl eframe::App for ModManagerApp {
         egui::ScrollArea::vertical()
         .id_source("main_scroll")
         .show(ui, |ui| {
+            ui.heading("Game Mod Manager");
+            
             ui.horizontal(|ui| {
-                ui.heading("Game Mod Manager");
                 if ui.button("Select Game Directory").clicked() {
                     if let Some(path) = rfd::FileDialog::new().pick_folder() {
                         self.config.game_path = path;
@@ -137,6 +159,7 @@ impl eframe::App for ModManagerApp {
                         *self.file_manager.lock().unwrap() = FileManager::new(&self.config.game_path);
                     }
                 }
+                ui.label("EX: D:\\Steam\\steamapps\\common\\Zombie Estate 2\\Data");
             });
 
             ui.add_space(20.0);

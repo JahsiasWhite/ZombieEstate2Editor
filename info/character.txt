@@ -23,6 +23,7 @@ description: [String] Brief character description or flavor text
 startingGun: [String] Initial weapon name
 
 # Points required to unlock the character
+# Setting this equal to 0 will make the character unlocked
 PointsToUnlock: [int] Number of points needed to unlock this character
 
 # Super weapon
