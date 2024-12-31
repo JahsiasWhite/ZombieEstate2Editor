@@ -14,11 +14,11 @@ Make sure you have Cargo installed. If you don't, follow the instructions here: 
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/JahsiasWhite/ZombieEstate2ModManager.git
+   git clone https://github.com/JahsiasWhite/ZombieEstate2Editor.git
    ```
 2. Navigate to the project directory:
    ```bash
-   cd ZombieEstate2ModManager
+   cd ZombieEstate2Editor
    ```
 3. Run the application:
    ```bash
