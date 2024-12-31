@@ -14,7 +14,7 @@ Make sure you have Cargo installed. If you don't, follow the instructions here: 
 
 1. Clone this repository:
    ```bash
-   git clone <ZombieEstate2ModManager-url>
+   git clone https://github.com/JahsiasWhite/ZombieEstate2ModManager.git
    ```
 2. Navigate to the project directory:
    ```bash
